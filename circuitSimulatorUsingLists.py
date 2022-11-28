@@ -24,6 +24,8 @@ from wire import Wire
 
 class CircuitSimulator(CircuitSimulatorBase):
     def __init__(self):
+        self.file1 = open('transOutput.txt', 'w')
+        self.file2 = open('wireOutput.txt', 'w')
         CircuitSimulatorBase.__init__(self)
 
         self.lastChipGroupState = 0
@@ -84,6 +86,7 @@ class CircuitSimulator(CircuitSimulatorBase):
                         self.turnTransistorOff(transistor)
                 
     def turnTransistorOn(self, t):
+        # print t.gateWireIndex, t.side1WireIndex, t.side2WireIndex, t.index
         t.gateState = NmosFet.GATE_HIGH
 
         wireInd = t.side1WireIndex
@@ -101,6 +104,7 @@ class CircuitSimulator(CircuitSimulatorBase):
             self.lastChipGroupState += 1
 
     def turnTransistorOff(self, t):
+        # print t.gateWireIndex, t.side1WireIndex, t.side2WireIndex
         t.gateState = NmosFet.GATE_LOW
 
         c1Wire = t.side1WireIndex
@@ -190,3 +194,18 @@ class CircuitSimulator(CircuitSimulatorBase):
         data = CircuitSimulatorBase.loadCircuit(self, filePathIn)
         self.groupList = [0] * len(self.wireList)
         return data
+
+    def printTransistorState(self):
+        for transistor in self.transistorList:
+            self.file1.write(str(transistor.gateState))
+        self.file1.write("\n")
+
+    def printWireState(self):
+        for wire in self.wireList:
+            if wire.isHigh():
+                self.file2.write("1")
+            elif wire.isLow():
+                self.file2.write("0")
+            else:
+                self.file2.write(" ")
+        self.file2.write("\n")

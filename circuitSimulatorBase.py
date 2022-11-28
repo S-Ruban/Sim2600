@@ -300,12 +300,17 @@ class CircuitSimulatorBase:
 
     def loadCircuit (self, filePath):
 
+        flag = False
+        # print('filepath: ', filePath)
+        # if filePath == 'chips/net_6502.pkl':
+        #     flag = True
+
         if not os.path.exists(filePath):
             raise Exception('Could not find circuit file: %s  from cwd %s'%
                             (filePath, os.getcwd()))
         print 'Loading %s' % filePath
         
-        of = open (filePath, 'rb')
+        of = open (filePath, 'r')
         rootObj = pickle.load (of)
         of.close()
 
@@ -374,8 +379,12 @@ class CircuitSimulatorBase:
                 self.wireNames[wireNames[i]] = i
             i += 1
 
+        if flag:
+            output = open('map.txt', 'w')
+
         self.transistorList = [None] * numFets
         i = 0
+        print("numFets: ", numFets)
         while i < numFets:
             s1 = fetSide1WireInds[i]
             s2 = fetSide2WireInds[i]
@@ -386,7 +395,13 @@ class CircuitSimulatorBase:
                 assert gate == noWire
             else:
                 self.transistorList[i] = NmosFet(i, s1, s2, gate)
+                if flag:
+                    output.write(str(i) + " " +  str(gate) + " " + str(s1) + " " + str(s2))
+                    output.write("\n")
             i += 1
+        
+        if flag:
+            output.close()
 
         assert 'VCC' in self.wireNames
         assert 'VSS' in self.wireNames

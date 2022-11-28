@@ -27,7 +27,7 @@ from emuPIA import EmuPIA
 
 class Sim2600Console:
     def __init__(self, romFilePath):
-        self.sim6507 = Sim6502()
+        self.sim6507 = Sim6502()    #   Comment: Initiate 6502
         self.simTIA  = SimTIA()
         self.emuPIA  = EmuPIA()
 
@@ -425,6 +425,8 @@ class Sim2600Console:
     
             cpu.recalcWire(cpu.padIndCLK0)
             cpu.halfClkCount += 1
+            cpu.printTransistorState()
+            cpu.printWireState()
 
             addr = cpu.getAddressBusValue()
 

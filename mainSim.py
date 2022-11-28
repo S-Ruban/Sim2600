@@ -28,7 +28,7 @@ from sim2600Console import Sim2600Console
 
 class MainSim:
     def __init__(self):
-        self.imageGL = imageOpenGL.getInterface()
+        self.imageGL = imageOpenGL.getInterface()   #   Comment: initiate OpenGL
         self.imagePIL = imagePIL.getInterface()
         self.imageRaw = None
         self.elapsedHalfClocks = 0
@@ -38,7 +38,7 @@ class MainSim:
         # an emulation of the 6532 RIOT (RAM, I/O, Timer), and
         # a cartridge ROM file holding the program instructions.
         #
-        self.sim = Sim2600Console(params.romFile)
+        self.sim = Sim2600Console(params.romFile)   #   Comment: Initiate Sim2600
 
         # For measuring how fast the simulation is running
         self.lastUpdateTimeSec = None
@@ -78,12 +78,14 @@ class MainSim:
 
                 if self.imageGL != None:
                     if restartImage == True:
-                        self.imageGL.restartImage()
+                        #self.imageGL.restartImage()
+                        pass
                     self.imageGL.setNextPixel(rgba)
 
                 if self.imagePIL != None:
                     if restartImage == True:
-                        self.imagePIL.restartImage()
+                        #self.imagePIL.restartImage()
+                        pass
                     self.imagePIL.setNextPixel(rgba)
 
                 if self.sim.simTIA.isHigh(self.sim.simTIA.vblank):

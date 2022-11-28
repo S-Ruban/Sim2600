@@ -211,8 +211,8 @@ class ImageOpenGL(ImageBase):
 def getInterface():
     try:
         import OpenGL
-        import OpenGL.GL as gl
-        import OpenGL.GLUT as glut
+        import OpenGL.GL as gl          #   Comment: OpenGL.GL is just your typical OpenGL functions
+        import OpenGL.GLUT as glut      #   Comment: OpenGL.GLU is some of the more "fancy" OpenGL functions
 
         # Doing 'from OpenGL.GL import *' does not import to 
         # this module's namespace, so go over the module's

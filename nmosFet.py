@@ -30,9 +30,9 @@ class NmosFet:
     def __init__(self, idIndex, side1WireIndex, side2WireIndex, gateWireIndex):
         
         # Wires switched together when this transistor is on
-        self.side1WireIndex = side1WireIndex
-        self.side2WireIndex = side2WireIndex
-        self.gateWireIndex  = gateWireIndex
+        self.side1WireIndex = side1WireIndex    # I'm gonna assume this is drain wire
+        self.side2WireIndex = side2WireIndex    # I'm gonna assume this is source wire
+        self.gateWireIndex  = gateWireIndex     # gate wire
 
         self.gateState = NmosFet.GATE_LOW
         self.index = idIndex
